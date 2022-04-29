@@ -1,4 +1,4 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME ||'near-spring-social-good'
+const CONTRACT_NAME = process.env.CONTRACT_NAME ||'near-spring-social-good.shijo.near'
 
 function getConfig(env) {
   switch (env) {

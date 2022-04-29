@@ -1,0 +1,20 @@
+.header {
+    
+    text-align: center;
+    background: #222;
+  }
+  .header img {
+    width: 50px;
+    height: 7px;
+  }
+
+  #signout{
+      float: right;
+      margin-right: 10px;
+      margin-top: 50px;
+
+  }
+
+  h5{ 
+      background-color: white;
+  }

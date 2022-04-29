@@ -1,5 +1,5 @@
 {
-  "name": "near-spring-social-good",
+  "name": "near-spring-NFT-challenge3",
   "version": "0.1.0",
   "license": "UNLICENSED",
   "scripts": {
@@ -29,13 +29,20 @@
     "nodemon": "~2.0.3",
     "parcel-bundler": "~1.12.4",
     "react-test-renderer": "~17.0.1",
+    "sass": "^1.51.0",
     "shelljs": "~0.8.4"
   },
   "dependencies": {
+    "big.js": "^6.1.1",
+    "canvas-confetti": "^1.5.1",
+    "gsap": "^3.10.4",
     "near-api-js": "~0.43.1",
+    "prop-types": "^15.8.1",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
-    "regenerator-runtime": "~0.13.5"
+    "react-router-dom": "^6.3.0",
+    "regenerator-runtime": "~0.13.5",
+    "splitting": "^1.0.6"
   },
   "resolutions": {
     "@babel/preset-env": "7.13.8"
