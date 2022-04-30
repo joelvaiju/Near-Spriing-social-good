@@ -14,7 +14,7 @@ export default function Buytickets() {
 
       
       // in this case, we only care to query the contract when signed in
-      if (window.walletConnection.isSignedIn()) {
+      if (window.wallet.isSignedIn()) {
 
         // window.contract is set by initContract in index.js
         window.contract.get_ticket_per_user({ account_id: window.accountId })

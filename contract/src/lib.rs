@@ -6,7 +6,7 @@ use near_sdk::collections::{LookupMap, TreeMap};
 use near_sdk::AccountId;
 
 pub const UNIT_PRICE : u128 = 1;
-pub const TIKETS_PER_UNIT :u128 = 3;
+pub const TIKETS_PER_UNIT :u128 = 7;
 
 setup_alloc!();
 
@@ -42,7 +42,7 @@ impl Contract {
         let deposit = env::attached_deposit()/1000000000000000000000000;
         let tickets = (deposit/UNIT_PRICE)*TIKETS_PER_UNIT;
         // Use env::log to record logs permanently to the blockchain!
-        env::log(format!("{} got {} tickets for {} near", account_id, tickets, deposit ).as_bytes());
+       
 
        if self.tickets_per_owner.contains_key(&account_id) 
        {
@@ -53,6 +53,8 @@ impl Contract {
         self.tickets_per_owner.insert(&account_id, &tickets);
        }
 
+       env::log(format!("{} got {} tickets for {} near", account_id, self.tickets_per_owner.get(&account_id).unwrap(), self.tickets_per_owner.contains_key(&account_id) ).as_bytes());
+
        
        
     }
@@ -60,7 +62,9 @@ impl Contract {
     pub fn update_snake_game_stats(&mut self, score : u128, account_id :String){
 
         if self.snake_game_stats.contains_key(&account_id) {
-            self.snake_game_stats.insert(&account_id, &(self.snake_game_stats.get(&account_id).unwrap()+&score));
+            let old_score : u128 =  self.snake_game_stats.get(&account_id).unwrap();
+            let max_score : u128 = if old_score > score {old_score}  else {score};
+            self.snake_game_stats.insert(&account_id, &max_score);
         }else{
             self.snake_game_stats.insert(&account_id, &score);
         }
@@ -79,4 +83,6 @@ impl Contract {
             None => 0,
         }
     } 
+
+    
 }

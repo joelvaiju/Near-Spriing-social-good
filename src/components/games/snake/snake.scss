@@ -61,3 +61,11 @@
     box-shadow: 0 0 10px black;
     
   }
+
+  #snake button[disabled] {
+    box-shadow: none;
+    background-color: var(--light-gray);
+    color: gray;
+    cursor: not-allowed;
+    transform: none;
+  }

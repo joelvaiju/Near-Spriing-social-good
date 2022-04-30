@@ -1,7 +1,10 @@
+import { Contract } from 'near-api-js';
 import React from 'react';
 import '../snake/snake.scss'
+import Big from 'big.js';
 
-
+const SUGGESTED_DONATION = '0';
+const BOATLOAD_OF_GAS = Big(3).times(10 ** 13).toFixed();
 
 
   // utility functions
@@ -46,7 +49,7 @@ function shallowEquals(arr1, arr2) {
         
         direction: 39
       };
-  
+      this.disablebtn = this.props.disablebtn;
       this.moveFood = this.moveFood.bind(this);
       this.checkIfAteFood = this.checkIfAteFood.bind(this);
       this.startGame = this.startGame.bind(this);
@@ -56,8 +59,10 @@ function shallowEquals(arr1, arr2) {
       this.setDirection = this.setDirection.bind(this);
       this.removeTimers = this.removeTimers.bind(this);
     }
+     
     // randomly place snake food
     moveFood() {
+     
       if (this.moveFoodTimeout) clearTimeout(this.moveFoodTimeout)
       const x = parseInt(Math.random() * this.numCells);
       const y = parseInt(Math.random() * this.numCells);
@@ -165,6 +170,9 @@ function shallowEquals(arr1, arr2) {
     }
   
     startGame() {
+
+     
+
       this.removeTimers();
       this.moveSnakeInterval = setInterval(this.moveSnake, 130);
       this.moveFood();
@@ -179,10 +187,36 @@ function shallowEquals(arr1, arr2) {
     }
     
     endGame(){
+      
       this.removeTimers();
       this.setState({
         status : 2
       })
+
+      let obj =  { "score" : this.state.snake.length, "account_id" : window.accountId }
+       
+      window.contract.update_snake_game_stats(obj
+      ,
+        BOATLOAD_OF_GAS,
+        Big(0).times(10 ** 24).toFixed()
+      ).then(() => {
+        
+        contract.get_ticket_per_user({ account_id: window.accountId })
+        .then(response => {
+         
+         
+          if(parseInt(response)>0){
+           
+            this.disablebtn = true;
+            
+          }else{
+            
+            this.disablebtn = false;
+          }
+
+        })
+      })
+
     }
   
     removeTimers() {
@@ -220,7 +254,7 @@ function shallowEquals(arr1, arr2) {
       if (this.state.status === 0) {
         overlay = (
           <div className="snake-app__overlay">
-            <button onClick={this.startGame}>Start game!</button>
+            <button disabled={!this.disablebtn} onClick={this.startGame}>Start game!</button>
           </div>
         );
       } else if (this.state.status === 2) {
@@ -228,7 +262,7 @@ function shallowEquals(arr1, arr2) {
           <div className="snake-app__overlay">
             <div className="mb-1"><b>GAME OVER!</b></div>
             <div className="mb-1">Your score: {this.state.snake.length} </div>
-            <button onClick={this.startGame}>Start a new game</button>
+            <button disabled={!this.disablebtn} onClick={this.startGame}>Start a new game</button>
           </div>
         );
       }

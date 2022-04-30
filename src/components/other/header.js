@@ -1,9 +1,15 @@
 import React from 'react';
 import './header.css';
-import { logout } from '../../utils';
+
 
 
 export default function Header({tickets}) {
+
+
+  function logout() {
+    window.wallet.signOut();
+    window.location.replace(window.location.origin + window.location.pathname);
+  }
 
     return(
   <div className="header">
