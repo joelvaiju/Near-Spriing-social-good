@@ -33100,19 +33100,19 @@ function createSearchParams(init) {
   }, []));
 }
 },{"react":"../node_modules/react/index.js","history":"../node_modules/history/index.js","react-router":"../node_modules/react-router/index.js"}],"config.js":[function(require,module,exports) {
-const CONTRACT_NAME = "dev-1651267733485-77895165193153" || 'near-spring-social-good.shijo.near';
+const CONTRACT_NAME = "dev-1651267733485-77895165193153" || 'near-spring-social-good.shijo.testnet';
 
 function getConfig(env) {
   switch (env) {
     case 'production':
     case 'mainnet':
       return {
-        networkId: 'mainnet',
-        nodeUrl: 'https://rpc.mainnet.near.org',
+        networkId: 'testnet',
+        nodeUrl: 'https://rpc.testnet.near.org',
         contractName: CONTRACT_NAME,
-        walletUrl: 'https://wallet.near.org',
-        helperUrl: 'https://helper.mainnet.near.org',
-        explorerUrl: 'https://explorer.mainnet.near.org'
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
+        explorerUrl: 'https://explorer.testnet.near.org'
       };
 
     case 'development':
@@ -52118,7 +52118,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37159" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34345" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
