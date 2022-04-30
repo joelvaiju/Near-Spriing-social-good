@@ -32,7 +32,7 @@ const App = ({ contract, currentUser, nearConfig, wallet }) => {
  
 
   const [ticketsCount, setTicketsCount] = React.useState(0)
-  const [enablebtn, setDisablebtn] = React.useState(false)
+  const [enablebtn, setEnablebtn] = React.useState(false)
 
  window.wallet = wallet;
  window.contract = contract;
@@ -50,10 +50,13 @@ const App = ({ contract, currentUser, nearConfig, wallet }) => {
        contract.get_ticket_per_user({ account_id: currentUser.accountId })
           .then(response => {
            
-           
+           console.log("testhb")
             if(parseInt(response)>0){
+
               setTicketsCount(parseInt(response))
-              setDisablebtn(true);
+              setEnablebtn(false);
+            }else{
+              setEnablebtn(true)
             }
 
           })
@@ -85,20 +88,10 @@ const App = ({ contract, currentUser, nearConfig, wallet }) => {
   if (!currentUser) {
     return (
       <main>
-        <h1>Welcome to NEAR!</h1>
-        <p>
-          To make use of the NEAR blockchain, you need to sign in. The button
-          below will sign you in using NEAR Wallet.
-        </p>
-        <p>
-          By default, when your app runs in "development" mode, it connects
-          to a test network ("testnet") wallet. This works just like the main
-          network ("mainnet") wallet, but the NEAR Tokens on testnet aren't
-          convertible to other currencies – they're just for testing!
-        </p>
-        <p>
-          Go ahead and click the button below to try it out:
-        </p>
+        
+        <img src={require("./assets/gaming.png")} className="logo" />
+        
+       
         <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
           <button onClick={login}>Sign in</button>
         </p>
@@ -120,7 +113,7 @@ const App = ({ contract, currentUser, nearConfig, wallet }) => {
     <ul>
     <li><Link to="/">About</Link></li>
     <li><Link to="/buytickets">Buy Tickets</Link></li>
-      <li><Link to="/tetris">Tetris</Link></li>
+      <li><strong>Games</strong></li>
       <li><Link to="/snake">Snake</Link></li>
       
     </ul>
@@ -129,7 +122,7 @@ const App = ({ contract, currentUser, nearConfig, wallet }) => {
      <Routes >
      <Route  path="/" element={<About />} />
      <Route  path="/buytickets" element={<Buytickets />} />
-        <Route  path="/tetris" element={<Tetris id="game"/>} />
+        
         <Route path="/snake" element={<Snake size={550} enablebtn={enablebtn} />} />
     </Routes>
    </div>   

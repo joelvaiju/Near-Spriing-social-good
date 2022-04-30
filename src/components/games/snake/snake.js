@@ -44,12 +44,12 @@ function shallowEquals(arr1, arr2) {
       this.state = {
         snake: [],
         food: [],
-       
+       disabled:props.enablebtn,
         status: 0,
         
         direction: 39
       };
-      this.disablebtn = this.props.disablebtn;
+     
       this.moveFood = this.moveFood.bind(this);
       this.checkIfAteFood = this.checkIfAteFood.bind(this);
       this.startGame = this.startGame.bind(this);
@@ -59,7 +59,7 @@ function shallowEquals(arr1, arr2) {
       this.setDirection = this.setDirection.bind(this);
       this.removeTimers = this.removeTimers.bind(this);
     }
-     
+    
     // randomly place snake food
     moveFood() {
      
@@ -199,22 +199,18 @@ function shallowEquals(arr1, arr2) {
       ,
         BOATLOAD_OF_GAS,
         Big(0).times(10 ** 24).toFixed()
-      ).then(() => {
-        
-        contract.get_ticket_per_user({ account_id: window.accountId })
-        .then(response => {
-         
-         
-          if(parseInt(response)>0){
-           
-            this.disablebtn = true;
-            
-          }else{
-            
-            this.disablebtn = false;
-          }
+      )
+      contract.get_ticket_per_user({ account_id: window.accountId })
+      .then(response => {
+       
+        if(parseInt(response)>0){
+          this.setState({disabled:false})
+        }else{
+          this.setState({disabled:true})
+          
+        }
+ 
 
-        })
       })
 
     }
@@ -229,6 +225,7 @@ function shallowEquals(arr1, arr2) {
     }
   
     render() {
+
       // each cell should be approximately 15px wide, so calculate how many we need
       this.numCells = Math.floor(this.props.size / 15);
       const cellSize = this.props.size / this.numCells;
@@ -254,7 +251,7 @@ function shallowEquals(arr1, arr2) {
       if (this.state.status === 0) {
         overlay = (
           <div className="snake-app__overlay">
-            <button disabled={!this.disablebtn} onClick={this.startGame}>Start game!</button>
+            <button  disabled={this.state.disabled} onClick={this.startGame}>Start game!</button>
           </div>
         );
       } else if (this.state.status === 2) {
@@ -262,7 +259,7 @@ function shallowEquals(arr1, arr2) {
           <div className="snake-app__overlay">
             <div className="mb-1"><b>GAME OVER!</b></div>
             <div className="mb-1">Your score: {this.state.snake.length} </div>
-            <button disabled={!this.disablebtn} onClick={this.startGame}>Start a new game</button>
+            <button  disabled={this.state.disabled} onClick={this.startGame}>Start a new game</button>
           </div>
         );
       }

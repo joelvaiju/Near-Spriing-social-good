@@ -22,6 +22,11 @@ export default function Buytickets() {
            
             setTicketsCount(response)
             setShowBal(true)
+           if(parseInt(response) > 0){
+             localStorage.setItem('disable-game', false);
+           }else {
+             localStorage.setItem('disable-game', true)
+           }
 
           })
       }

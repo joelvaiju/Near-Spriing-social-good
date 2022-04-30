@@ -19,7 +19,7 @@ export default function Header({tickets}) {
         Sign out
     </button>
     <main>
-      <h1>Grain of raise</h1>
+      <h1>Charity gaming</h1>
     </main>
    
     </>
